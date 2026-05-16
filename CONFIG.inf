@@ -1,3 +1,7 @@
-CheckEvery = '30";            # Probably once figured out and working set to 120
-NumPortals = '1';             # How many expected portals through, program should figure it out
-WhatToLog = 'F/N/I/;           # Failures/Portal Jumps/Sucessful Itterations
+PORTAL_TRIGGER_URL = "http://neverssl.com"
+CHECK_INTERVAL = 15
+BUTTON_CLICK_DELAY = 2
+MAX_BUTTON_CLICKS = 3
+FIRST_BUTTON_XPATH = (
+    "(//button | //input[@type='submit'] | //button[contains(@class, 'primary-button')] | //input[@type='button'] | //a[@role='button'])[1]"
+)
