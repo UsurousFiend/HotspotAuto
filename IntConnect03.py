@@ -6,34 +6,35 @@ from selenium.webdriver.edge.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
-# ── Config ────────────────────────────────────────────────────────────────────
+# ── Config ───────
 
-# Plain HTTP so captive portals can intercept and redirect the request.
-# neverssl.com is purpose-built for this — it will never upgrade to HTTPS.
+# Plain HTTP so it doesn't trick edge into thinking it's online
+# neverssl.com is always http.
 PORTAL_TRIGGER_URL = "http://neverssl.com"
 
-# How often to poll for connectivity (seconds)
-CHECK_INTERVAL = 30
+# check connectivity 
+CHECK_INTERVAL = 15
 
-# Pause between consecutive button clicks (seconds)
+# Pause between consecutive button clicks
 BUTTON_CLICK_DELAY = 2
 
-# Maximum button clicks to attempt per login cycle.
-# Most browsers need 2 (Accept → Continue), Edge typically needs 1.
-MAX_BUTTON_CLICKS = 2
+# Maximum button clicks to attempt per login cycle
+# Most browsers need 2 (Accept → Continue), Edge typically needs 1
+MAX_BUTTON_CLICKS = 3
 
-# Matches the first visible button-like element on the page, whatever its text.
+# Matches the first visible button-like element on the page, 
+# whatever its text, we know it's a "primary-button" on the spoons button but sometimes others may be different
 FIRST_BUTTON_XPATH = (
-    "(//button | //input[@type='submit'] | //input[@type='button'] | //a[@role='button'])[1]"
+    "(//button | //input[@type='submit'] | //button[contains(@class, 'primary-button')] | //input[@type='button'] | //a[@role='button'])[1]"
 )
 
-# ── Helpers ───────────────────────────────────────────────────────────────────
-
+# ── Helpers ───────
 def check_internet(timeout: int = 5) -> bool:
-    """Return True if an HTTP request to Google succeeds."""
     try:
-        urllib.request.urlopen("http://www.google.com", timeout=timeout)
-        return True
+        response = urllib.request.urlopen(
+            "http://www.msftconnecttest.com/connecttest.txt", timeout=timeout
+        )
+        return response.read().strip() == b"Microsoft Connect Test"
     except (urllib.error.URLError, OSError):
         return False
 
@@ -64,7 +65,7 @@ def click_first_button(driver, now: str) -> bool:
         print(f"[{now}] ℹ️  Button: No clickable button found — {e}")
         return False
 
-# ── Core logic ────────────────────────────────────────────────────────────────
+# ── Core logic ────────────
 
 def attempt_portal_login(driver, now: str) -> None:
     """Navigate to the portal trigger URL and click through accept/continue screens."""
