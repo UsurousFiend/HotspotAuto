@@ -1,0 +1,3 @@
+CheckEvery = '30";            # Probably once figured out and working set to 120
+NumPortals = '1';             # How many expected portals through, program should figure it out
+WhatToLog = 'F/N/I/;           # Failures/Portal Jumps/Sucessful Itterations
