@@ -5,28 +5,20 @@ from selenium import webdriver
 from selenium.webdriver.edge.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-
-# ── Config ───────
-
-# Plain HTTP so it doesn't trick edge into thinking it's online
-# neverssl.com is always http.
+# ── Conf -
 PORTAL_TRIGGER_URL = "http://neverssl.com"
-
-# check connectivity 
 CHECK_INTERVAL = 15
-
-# Pause between consecutive button clicks
 BUTTON_CLICK_DELAY = 2
-
-# Maximum button clicks to attempt per login cycle
-# Most browsers need 2 (Accept → Continue), Edge typically needs 1
 MAX_BUTTON_CLICKS = 3
-
-# Matches the first visible button-like element on the page, 
-# whatever its text, we know it's a "primary-button" on the spoons button but sometimes others may be different
 FIRST_BUTTON_XPATH = (
     "(//button | //input[@type='submit'] | //button[contains(@class, 'primary-button')] | //input[@type='button'] | //a[@role='button'])[1]"
 )
+# check connectivity 
+# Pause between consecutive button clicks
+# Maximum button clicks to attempt per login cycle
+# Most browsers need 2 (Accept → Continue), Edge typically needs 1
+# Matches the first visible button-like element on the page, 
+# whatever its text, we know it's a "primary-button" on the spoons button but sometimes others may be different
 
 # ── Helpers ───────
 def check_internet(timeout: int = 5) -> bool:
