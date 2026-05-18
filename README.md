@@ -1,3 +1,8 @@
+UPDATE -- 18/6 VERSION 004 works for me, comment out the line about edge window maximised and that should make it run in the bg but i'll check later
+
+
+
+
 WORK IN PROGRESS SCRIPT TO RUN IN THE BG TO AUTO=RECONNECT TO PUBLIC WIFI (if you live near one and leech Internet from it for free)
 
 AIM TO HAVE IT SEEMLESS BY V 0.5 (currently waiting to test 0.3)
